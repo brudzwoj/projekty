@@ -1,3 +1,8 @@
+// zadanko z internetu. Pierwsze potrzebne bylo mi do przeanalizowania kodu.. 
+// Musze nadazyc za grupa :) ten kod jest dosyc czytrlny i przyda mi sie do pozniejszych zadan 
+
+
+
 #include <stdio.h>
 
 int check_anagram(char [], char []);
