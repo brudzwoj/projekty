@@ -69,10 +69,10 @@ public:
                 cards[i * ranks_count + j].rank = j;
             }
         }
-        suits[0] = "D";
-        suits[1] = "S";
-        suits[2] = "H";
-        suits[3] = "C";
+        suits[0] = "Diamonds";
+        suits[1] = "Spades";
+        suits[2] = "Hearths";
+        suits[3] = "Clubs";
 
         ranks[0] = "2";
         ranks[1] = "3";
@@ -243,7 +243,7 @@ private:
     Deck deck1;
     int bind;
     Card tableCards[5];
-    int pot, action, bet, rational, betOn, winner, maxPoints, roundWinner;
+    int pot, action, bet, rational, betOn, winner, maxPoints, roundWinner, raise;
     int handPoints[6];
     int bestHand[6][3];
 
@@ -306,23 +306,23 @@ private:
             {
                 if (betOn)
                 {
-                    cout << "\t\t\t\t\tYour action: (1) FLOP (3) BET/CALL ";
+                    cout << "\t\t\t\t\tYour action: (1) FLOP (3) BET/CALL  RAISE (4) ";
                     cin >> action;
-                    while (action != 1 && action != 3)
+                    while (action != 1 && action != 3 && action != 4)
                     {
                         cout << "Invalid number pressed." << endl;
-                        cout << "\t\t\t\t\tYour action: (1) FLOP (3) BET/CALL ";
+                        cout << "\t\t\t\t\tYour action: (1) FLOP (3) BET/CALL  RAISE (4) ";
                         cin >> action;
                     }
                 }
                 else
                 {
-                    cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
+                    cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL  RAISE (4)";
                     cin >> action;
-                    while (action < 1 || action > 3)
+                    while (action < 1 || action > 4)
                     {
                         cout << "Invalid number pressed." << endl;
-                        cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL ";
+                        cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL RAISE (4) ";
                         cin >> action;
                     }
                 }
@@ -339,8 +339,33 @@ private:
                     cout << "\t+ " << players[4].name << " checks.\n";
                     continue;
                 }
-                else
+                else if (action == 4)
                 {
+                    int riseValue;
+
+                    cout << "\t+ " <<"How much money would you like to rise  ";
+                        cin >> riseValue;
+
+                            if (riseValue - players[4].money < 0) {
+
+                                players[4].money -= riseValue;
+                                pot += riseValue;
+                                cout << "\t+ " << players[4].name << " rises! " << riseValue << "$\n";
+                                betOn = riseValue;
+                                continue;
+
+                            } else {
+                                cout << "you dont have enough money" << "\n \n";
+                                cout << "choose action once again \n";
+                                cout << "\t\t\t\t\tYour action: (1) FLOP (2) CHECK (3) BET/CALL RAISE (4) ";
+                                   cin >> action;
+                            }
+                       continue;
+                    }
+
+
+                  else
+                    {
                     if (betOn)
                     {
                         if(players[4].money - betOn < 0){
@@ -386,6 +411,7 @@ private:
 
                 }
             }
+
             /* computers actions */
             else
             {
