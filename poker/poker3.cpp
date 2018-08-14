@@ -339,6 +339,8 @@ private:
                     cout << "\t+ " << players[4].name << " checks.\n";
                     continue;
                 }
+
+                /* RISE ACTION */
                 else if (action == 4)
                 {
                     int riseValue;
@@ -352,7 +354,7 @@ private:
                                 pot += riseValue;
                                 cout << "\t+ " << players[4].name << " rises! " << riseValue << "$\n";
                                 betOn = riseValue;
-                                continue;
+                                players[4].goodToGo = 1;
 
                             } else {
                                 cout << "you dont have enough money" << "\n \n";
@@ -419,14 +421,14 @@ private:
                 {
                     continue;
                 }
-                rational = rand() % 2;
+                rational = rand() % 3;
                 if (rational)
                 {
                     action = computerAction(k % players_count);
                 }
                 else
                 {
-                    action = rand() % 3;
+                    action = rand() % 4;
                 }
                 if (action == 0)
                 {
@@ -437,6 +439,26 @@ private:
                 {
                     cout << "\t+ " << players[k % players_count].name << " checks." << endl;
                     continue;
+                }
+                else if (action == 4)
+                {
+
+                        int riseValue;
+
+                           riseValue = ( betOn + rand() % (players[k % players_count].money) );
+                                if (riseValue - players[4].money < 0) {
+
+                                    players[4].money -= riseValue;
+                                    pot += riseValue;
+                                    cout << "\t+ " << players[k % players_count].name << " rises! " << riseValue << "$\n";
+                                    betOn = riseValue;
+                                    players[4].goodToGo = 1;
+
+                                } else
+                                    {
+                                    action = rand() % 4;
+                                    }
+
                 }
                 else
                 {
