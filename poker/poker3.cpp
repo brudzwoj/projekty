@@ -340,7 +340,7 @@ private:
                     continue;
                 }
 
-                /* RISE ACTION */
+                /* RAISE ACTION */
                 else if (action == 4)
                 {
                     int riseValue;
@@ -348,6 +348,11 @@ private:
                     cout << "\t+ " <<"How much money would you like to rise  ";
                         cin >> riseValue;
 
+                        if (riseValue < betOn)
+                           {
+                               cout << "its not a raise!!";
+                                       cin >> riseValue;
+                           }else{
                             if (riseValue - players[4].money < 0) {
 
                                 players[4].money -= riseValue;
@@ -364,7 +369,7 @@ private:
                             }
                        continue;
                     }
-
+                }
 
                   else
                     {
